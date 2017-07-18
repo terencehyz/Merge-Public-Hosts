@@ -6,7 +6,7 @@ const  cache = require('memory-cache');
 const cache_key = 'RUYO';
 const cache_timeout = 1000 * 60 * 10;
 const hostname = '0.0.0.0';
-const port = 3000;
+const port = 80;
 const source = [
     'https://raw.githubusercontent.com/vokins/yhosts/master/hosts',
     'https://raw.githubusercontent.com/sy618/hosts/master/p',
@@ -21,7 +21,7 @@ const server = http.createServer((req, res) => {
                 + '\n'
                 + '#create time : ' + new Date()
                 + '\n'
-                + '#how to use : http://51.ruyo.net/p/988.html'
+                + '#how to use : https://hanyuzhou.com/2017/07/15/public-hosts'
                 + '\n'
                 + '########################### HOSTS ###########################'
                 + '\n'
