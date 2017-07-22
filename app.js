@@ -6,7 +6,7 @@ const  cache = require('memory-cache');
 const cache_key = 'RUYO';
 const cache_timeout = 1000 * 60 * 10;
 const hostname = '0.0.0.0';
-const port = 443;
+const port = 80;
 const source = [
     'https://raw.githubusercontent.com/vokins/yhosts/master/hosts',
     'https://raw.githubusercontent.com/sy618/hosts/master/p',
