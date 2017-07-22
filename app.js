@@ -1,19 +1,26 @@
-const http = require('http');
+const https = require('https');
+const fs = require('fs');
+
+const options = {
+    key: fs.readFileSync('/2_hosts.hanyuzhou.com.key'),
+    cert: fs.readFileSync('/1_hosts.hanyuzhou.com_bundle.crt')
+};
+
 const request = require('request');
 const async = require('async');
-const  cache = require('memory-cache');
+const cache = require('memory-cache');
 
 const cache_key = 'RUYO';
 const cache_timeout = 1000 * 60 * 10;
 const hostname = '0.0.0.0';
-const port = 80;
+const port = 443;
 const source = [
     'https://raw.githubusercontent.com/vokins/yhosts/master/hosts',
     'https://raw.githubusercontent.com/sy618/hosts/master/p',
     'https://raw.githubusercontent.com/sy618/hosts/master/y',
     'https://raw.githubusercontent.com/racaljk/hosts/master/hosts'
     ];
-const server = http.createServer((req, res) => {
+const server = https.createServer(options, function(req, res) {
     build(source,function(err,data){
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
