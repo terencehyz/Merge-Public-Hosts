@@ -1,9 +1,10 @@
 const https = require('https');
+const http = require('http');
 const fs = require('fs');
 
 const options = {
-    key: fs.readFileSync('/2_hosts.hanyuzhou.com.key'),
-    cert: fs.readFileSync('/1_hosts.hanyuzhou.com_bundle.crt')
+    key: fs.readFileSync('/root/Merge-Public-Hosts/2_hosts.hanyuzhou.com.key'),
+    cert: fs.readFileSync('/root/Merge-Public-Hosts/1_hosts.hanyuzhou.com_bundle.crt')
 };
 
 const request = require('request');
@@ -13,6 +14,7 @@ const cache = require('memory-cache');
 const cache_key = 'RUYO';
 const cache_timeout = 1000 * 60 * 10;
 const hostname = '0.0.0.0';
+const http_port = 80;
 const port = 443;
 const source = [
     'https://raw.githubusercontent.com/vokins/yhosts/master/hosts',
@@ -20,6 +22,12 @@ const source = [
     'https://raw.githubusercontent.com/sy618/hosts/master/y',
     'https://raw.githubusercontent.com/racaljk/hosts/master/hosts'
     ];
+const http_server = http.createServer(function(req, res){
+	res.writeHead(301,{
+        'Location':'https://hosts.hanyuzhou.com'
+    });
+    res.end();
+});
 const server = https.createServer(options, function(req, res) {
     build(source,function(err,data){
         res.statusCode = 200;
@@ -39,8 +47,12 @@ const server = https.createServer(options, function(req, res) {
     });
 });
 
+http_server.listen(http_port, hostname, function(){
+	console.log('跳转');
+});
+
 server.listen(port, hostname, () => {
-    console.log(`服务器运行在 http://${hostname}:${port}/`);
+    console.log(`服务器运行在 https://${hostname}:${port}/`);
     });
 
 
